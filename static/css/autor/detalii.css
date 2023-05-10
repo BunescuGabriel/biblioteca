@@ -1,0 +1,67 @@
+/* Stilizarea titlului */
+h1 {
+  background-color: #f8f8f8;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  text-align: center;
+}
+
+/* Stilizarea listei de detalii autor */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Stilizarea butonului de intoarcere */
+.sageata-inapoi {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Efectul de hover pentru butonul de intoarcere */
+.sageata-inapoi:hover {
+  background-color: #3e8e41;
+}
+
+/* Stilizarea containerului pentru lista de detalii si butonul de intoarcere */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+
+/* Efectul de animatie pentru titlu */
+h1 {
+  animation: fadeIn 1s ease;
+}
+
+/* Definirea animatiei pentru titlu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+

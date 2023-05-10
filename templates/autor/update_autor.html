@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Actualizare autor
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/update.css') }}">
+{% endblock %}
+
+{% block body %}
+
+  <h1>Actualizare autor</h1>
+<a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+
+  <form method="POST" action="{{ url_for('update_autor', id=autor.id) }}">
+    <label for="nume">Nume:</label>
+    <input type="text" id="nume" name="nume" value="{{ autor.nume }}">
+
+    <label for="prenume">Prenume:</label>
+    <input type="text" id="prenume" name="prenume" value="{{ autor.prenume }}">
+
+    <button type="submit">Actualizare autor</button>
+  </form>
+
+{% endblock %}
+

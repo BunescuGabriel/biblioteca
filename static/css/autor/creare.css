@@ -1,0 +1,115 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f8f9fa;
+}
+
+
+
+
+
+/* Stilizam sagetile de intoarcere */
+.sageata-inapoi {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #3ebf9b;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sageata-inapoi:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Stilizam containerul formularului */
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f2f2f2;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+
+
+
+
+
+
+
+
+/* Stilizam titlul */
+h1 {
+  background-color: #f8f8f8;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+}
+/* Efectul de animatie pentru titlu */
+h1 {
+  animation: fadeIn 1s ease;
+}
+
+/* Definirea animatiei pentru titlu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Creare carte
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carte/creare.css') }}">
+{% endblock %}
+
+{% block body%}
+<a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+
+
+<h1>Creare Carte</h1>
+<form method="POST" enctype="multipart/form-data" action="/carti/creare">
+    <label for="titlu">Titlu:</label>
+    <input type="text" id="titlu" name="titlu" required><br><br>
+
+    <label for="intro">Introducere:</label><br>
+    <textarea id="intro" name="intro" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="autor_id">Autor:</label>
+    <select id="autor_id" name="autor_id" required>
+        {% for autor in autori %}
+        <option value="{{ autor.id }}">{{ autor.prenume }} {{ autor.nume }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="image">Imagine:</label>
+    <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+    <input type="submit" value="Adauga Carte">
+</form>
+
+
+
+
+{% endblock %}

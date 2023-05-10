@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/autor.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+{% block title %}
+Autori
+{% endblock %}
+
+{% block body %}
+  <h1>Lista de autori</h1>
+  <button onclick="window.location.href='autori/create';">Creare</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Detalii</th>
+        <th>Acțiuni</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for autor in autori %}
+        <tr>
+          <td>{{ autor.nume }}</td>
+          <td>{{ autor.prenume }}</td>
+          <td><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-refresh"></i></a></td>
+          <td>
+            <form action="{{ url_for('delete_autor', id=autor.id) }}" method="POST">
+  <button type="submit" class="icon-button">
+    <i class="fa fa-trash"></i>
+  </button>
+</form>
+          </td>
+          <td><a href="{{ url_for('update_autor', id=autor.id) }}"><i class="fa fa-info-circle"></i></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

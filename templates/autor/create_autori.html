@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Creare Autor
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/creare.css') }}">
+{% endblock %}
+
+{% block body%}
+<a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+
+<div class="container">
+<h1>Creare autor</h1>
+  <form method="POST">
+
+    <div class="form-group">
+      <label for="nume">Nume:</label>
+      <input type="text" name="nume" id="nume" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="prenume">Prenume:</label>
+      <input type="text" name="prenume" id="prenume" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Adauga autor</button>
+</form>
+  </div>
+
+{% endblock %}

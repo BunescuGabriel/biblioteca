@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/detalii.css') }}">
+{% endblock %}
+
+{% block title %}
+Detalii
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+  <h1>Detalii autor</h1>
+  <ul>
+    <li><strong>Nume:</strong> {{ autor.nume }}</li>
+    <li><strong>Prenume:</strong> {{ autor.prenume }}</li>
+    <li><strong>Data nașterii:</strong> {{ autor.data_nasterii }}</li>
+    <li><strong>Țară:</strong> {{ autor.tara }}</li>
+  </ul>
+  <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+</div>
+
+{% endblock %}
