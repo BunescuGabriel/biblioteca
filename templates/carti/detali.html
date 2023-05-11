@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+About
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carte/detali.css') }}">
+{% endblock %}
+
+{% block body%}
+
+
+
+<div class="container">
+    <div class="back-container">
+        <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+    </div>
+    <h1>Detali</h1>
+
+    <div class="book-details">
+        <img src="{{ carti.image }}">
+
+        <h2>Titlu: {{ carti.titlu }}</h2>
+        <h2>Autor: {{ carti.autor.nume }} {{ carti.autor.prenume }}</h2>
+
+        <h3>Descriere:</h3>
+        <p>{{ carti.intro }}</p>
+    </div>
+</div>
+
+
+
+{% endblock %}

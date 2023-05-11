@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carte/update.css') }}">
+{% endblock %}
+
+{% block body%}
+
+<h1>Actualizare carte</h1>
+<a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+
+   <form method="POST" action="/carti/{{ carte.id }}/update">
+    <label for="titlu">Titlu:</label>
+    <input type="text" id="titlu" name="titlu" value="{{ carte.titlu }}" required><br>
+
+    <label for="intro">Introducere:</label>
+    <textarea id="intro" name="intro" required>{{ carte.intro }}</textarea><br>
+
+    <label for="current_image">Imagine curentă:</label>
+    <input type="text" id="current_image" name="current_image" value="{{ carte.image }}" readonly><br>
+
+    <label for="new_image">Imagine nouă:</label>
+    <input type="file" id="new_image" name="new_image"><br>
+
+    <label for="autor_id">Autor:</label>
+    <select id="autor_id" name="autor_id">
+        {% for autor in autori %}
+        <option value="{{ autor.id }}" {% if autor.id == carte.autor_id %}selected{% endif %}>{{ autor.nume }} {{ autor.prenume }}</option>
+        {% endfor %}
+    </select><br>
+
+    <input type="submit" value="Actualizează">
+</form>
+
+
+
+
+
+{% endblock %}

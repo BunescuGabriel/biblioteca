@@ -15,22 +15,39 @@ List of Books
 <h1>List of Books</h1>
 <button onclick="window.location.href='carti/creare';">Creare</button>
 
-{% for carte in carti %}
-<div class="carte-box">
-    <img src="{{ carte.imagine }}" alt="Imagine carte">
+
+<div class="container">
+  {% for carte in carti %}
+  <div class="carte-box">
+
+
+
+    {% for imagine in imagini %}
+            <img src="{{ url_for('static', filename='imagini_carte/' + imagine) }}" alt="Imagine carte">
+        {% endfor %}
+
+
+
 
     <h2>{{ carte.titlu }}</h2>
     <p><strong>Introducere:</strong> {{ carte.intro }}</p>
     <p><strong>Autor:</strong> {{ carte.autor.prenume }} {{ carte.autor.nume }}</p>
 
     <div class="buton-container">
-        <button class="buton"><i class="fa fa-trash"></i></button>
-        <button class="buton"><i class="fa fa-info-circle"></i></button>
-        <button class="buton"><i class="fa fa-refresh"></i></button>
-    </div>
+       <form action="/carti/{{ carte.id }}/delete" method="POST">
+        <button class="buton" type="submit"><i class="fa fa-trash"></i></button>
+      </form>
+      <a href="{{ url_for('update', id=carte.id) }}" class="buton" style="text-decoration: none;"><i class="fa fa-refresh"></i></a>
 
+      <a href="{{ url_for('carte', id=carte.id) }}" class="buton" style="text-decoration: none;"><i class="fa fa-info-circle"></i></a>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
+
+
+
+
 
 
 {% endblock %}

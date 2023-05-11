@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from werkzeug.utils import secure_filename
 
 from db import db_init, db
@@ -6,11 +6,17 @@ from model import Carte, Autor
 from io import BytesIO
 from PIL import Image
 import os
+import base64
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///biblioteca.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db_init(app)
+
+#
+# UPLOAD_FOLDER = b'imagini_carte'
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER.decode()
 
 
 
@@ -25,16 +31,25 @@ def about():
     return render_template("about.html")
 
 
+UPLOAD_FOLDER = 'static/imagini_carte'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 @app.route('/carti')
 def carti():
     carti = Carte.query.order_by(Carte.date.desc()).all()
-    return render_template("carti/carte.html", carti=carti)
+
+    # Preia lista fișierelor din mapa de imagini
+    imagini = os.listdir(UPLOAD_FOLDER)
+
+    return render_template("carti/carte.html", carti=carti, imagini=imagini)
+
+
 
 
 @app.route('/carti/<int:id>')
 def carte(id):
-    carte = Carte.query.get_or_404(id)
-    return render_template("creare.html", carte=carte)
+    carti = Carte.query.get_or_404(id)
+    return render_template("carti/detali.html", carti=carti)
 
 
 @app.route('/carti/creare', methods=['GET', 'POST'])
@@ -45,21 +60,18 @@ def create():
         autor_id = request.form['autor_id']
 
         # Procesam imaginea din formular
-        image = None
+        image_path = None
         if 'image' in request.files:
             file = request.files['image']
             if file.filename != '':
-                img = Image.open(BytesIO(file.read()))
                 filename = secure_filename(file.filename)
-                save_path = os.path.join('UPLOAD_FOLDER', filename)  # Calea către mapa 'imagini' și numele fișierului
-                img.save(save_path)
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(image_path)
 
-                image = save_path  # Salvăm calea către imagine în loc de datele imaginei
-
-        carte = Carte(titlu=titlu, intro=intro, image=image, autor_id=autor_id)
+        carti = Carte(titlu=titlu, intro=intro, image=image_path, autor_id=autor_id)
 
         try:
-            db.session.add(carte)
+            db.session.add(carti)
             db.session.commit()
             return redirect('/carti')
         except:
@@ -67,6 +79,7 @@ def create():
     else:
         autori = Autor.query.all()
         return render_template("carti/creare.html", autori=autori)
+
 
 
 
@@ -85,7 +98,7 @@ def update(id):
             return "A aparut o eroare la actualizarea cartii."
     else:
         autori = Autor.query.all()
-        return render_template("update.html", carte=carte, autori=autori)
+        return render_template("carti/update.html", carte=carte, autori=autori)
 
 
 @app.route('/carti/<int:id>/delete', methods=['POST'])

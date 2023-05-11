@@ -10,7 +10,11 @@ Detalii
 {% endblock %}
 
 {% block body %}
+<div class="back-container">
+        <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+    </div>
     <div class="container">
+
   <h1>Detalii autor</h1>
   <ul>
     <li><strong>Nume:</strong> {{ autor.nume }}</li>
@@ -18,7 +22,7 @@ Detalii
     <li><strong>Data nașterii:</strong> {{ autor.data_nasterii }}</li>
     <li><strong>Țară:</strong> {{ autor.tara }}</li>
   </ul>
-  <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
+
 </div>
 
 {% endblock %}
