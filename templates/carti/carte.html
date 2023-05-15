@@ -21,13 +21,7 @@ List of Books
   <div class="carte-box">
 
 
-
-    {% for imagine in imagini %}
-            <img src="{{ url_for('static', filename='imagini_carte/' + imagine) }}" alt="Imagine carte">
-        {% endfor %}
-
-
-
+  <img src="{{ url_for('static', filename='imagini_carte/' +carte.image) }}" alt="Imagine carte">
 
     <h2>{{ carte.titlu }}</h2>
     <p><strong>Introducere:</strong> {{ carte.intro }}</p>

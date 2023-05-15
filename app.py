@@ -34,16 +34,19 @@ def about():
 UPLOAD_FOLDER = 'static/imagini_carte'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# @app.route('/carti')
+# def carti():
+#     carti = Carte.query.order_by(Carte.date.desc()).all()
+#
+#     # Preia lista fișierelor din mapa de imagini
+#     imagini = os.listdir(UPLOAD_FOLDER)
+#
+#     return render_template("carti/carte.html", carti=carti, imagini=imagini)
+
 @app.route('/carti')
 def carti():
     carti = Carte.query.order_by(Carte.date.desc()).all()
-
-    # Preia lista fișierelor din mapa de imagini
-    imagini = os.listdir(UPLOAD_FOLDER)
-
-    return render_template("carti/carte.html", carti=carti, imagini=imagini)
-
-
+    return render_template("carti/carte.html", carti=carti)
 
 
 @app.route('/carti/<int:id>')
@@ -59,7 +62,7 @@ def create():
         intro = request.form['intro']
         autor_id = request.form['autor_id']
 
-        # Procesam imaginea din formular
+        # Procesăm imaginea din formular
         image_path = None
         if 'image' in request.files:
             file = request.files['image']
@@ -67,6 +70,7 @@ def create():
                 filename = secure_filename(file.filename)
                 image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(image_path)
+                image_path = os.path.relpath(image_path, app.config['UPLOAD_FOLDER'])
 
         carti = Carte(titlu=titlu, intro=intro, image=image_path, autor_id=autor_id)
 
@@ -79,6 +83,7 @@ def create():
     else:
         autori = Autor.query.all()
         return render_template("carti/creare.html", autori=autori)
+
 
 
 
