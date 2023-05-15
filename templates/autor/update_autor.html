@@ -6,23 +6,111 @@ Actualizare autor
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/update.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/autor/update.css') }}">
+
+
+
+
 {% endblock %}
 
 {% block body %}
 
-  <h1>Actualizare autor</h1>
+<h1>Actualizare autor</h1>
 <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
 
-  <form method="POST" action="{{ url_for('update_autor', id=autor.id) }}">
+<form method="POST" action="{{ url_for('update_autor', id=autor.id) }}">
     <label for="nume">Nume:</label>
     <input type="text" id="nume" name="nume" value="{{ autor.nume }}">
 
     <label for="prenume">Prenume:</label>
     <input type="text" id="prenume" name="prenume" value="{{ autor.prenume }}">
 
-    <button type="submit">Actualizare autor</button>
-  </form>
+    <label for="zi_nastere">Alegerea datii de nastere:</label>
 
+    <div class="birthdate-select">
+    <div class="col">
+        <label for="zi_nastere">Ziua nașterii:</label>
+        <select id="zi_nastere" name="zi_nastere">
+            <option value="">-- Ziua --</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="luna_nastere">Luna nașterii:</label>
+        <select id="luna_nastere" name="luna_nastere">
+            <option value="">-- Luna --</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="an_nastere">Anul nașterii:</label>
+        <select id="an_nastere" name="an_nastere">
+            <option value="">-- Anul --</option>
+        </select>
+    </div>
+</div>
+
+
+    <label for="tara">Țara:</label>
+    <input type="text" id="tara" name="tara" value="{{ autor.tara }}">
+
+    <button type="submit">Actualizare autor</button>
+</form>
+
+
+
+
+
+
+
+<script>
+    var ziSelect = document.getElementById("zi_nastere");
+    var lunaSelect = document.getElementById("luna_nastere");
+    var anSelect = document.getElementById("an_nastere");
+
+    ziSelect.addEventListener("change", updateDataNasterii);
+    lunaSelect.addEventListener("change", updateDataNasterii);
+    anSelect.addEventListener("change", updateDataNasterii);
+
+    function updateDataNasterii() {
+        var zi = ziSelect.value;
+        var luna = lunaSelect.value;
+        var an = anSelect.value;
+
+        var data_nasterii = zi + "/" + luna + "/" + an;
+        console.log(data_nasterii); // Pentru exemplificare, afișăm data de naștere în consolă
+
+        // Atribuiți valoarea variabilei data_nasterii în orice altă parte a codului unde doriți să o utilizați
+    }
+
+    var numarMaximZile = 31;
+    for (var zi = 1; zi <= numarMaximZile; zi++) {
+        var option = document.createElement("option");
+        option.value = zi;
+        option.text = zi;
+        ziSelect.appendChild(option);
+    }
+
+    var numeLuni = [
+        "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie",
+        "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"
+    ];
+        for (var luna = 1; luna <= numeLuni.length; luna++) {
+        var option = document.createElement("option");
+        option.value = luna;
+        option.text = numeLuni[luna - 1];
+        lunaSelect.appendChild(option);
+    }
+
+    var anulCurent = new Date().getFullYear();
+    var anulInceput = 1900;
+    for (var an = anulCurent; an >= anulInceput; an--) {
+        var option = document.createElement("option");
+        option.value = an;
+        option.text = an;
+        anSelect.appendChild(option);
+    }
+</script>
 {% endblock %}
+
 

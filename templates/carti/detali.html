@@ -19,7 +19,7 @@ About
     <h1>Detali</h1>
 
     <div class="book-details">
-        <img src="{{ carti.image }}">
+        <img src="{{ url_for('static', filename='imagini_carte/' +carti.image) }}" alt="Imagine carte">
 
         <h2>Titlu: {{ carti.titlu }}</h2>
         <h2>Autor: {{ carti.autor.nume }} {{ carti.autor.prenume }}</h2>

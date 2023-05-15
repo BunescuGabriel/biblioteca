@@ -9,19 +9,22 @@ Update
 {% endblock %}
 
 {% block body%}
-
 <h1>Actualizare carte</h1>
 <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
 
-   <form method="POST" action="/carti/{{ carte.id }}/update">
+<form method="POST" action="/carti/{{ carte.id }}/update" enctype="multipart/form-data">
     <label for="titlu">Titlu:</label>
     <input type="text" id="titlu" name="titlu" value="{{ carte.titlu }}" required><br>
 
     <label for="intro">Introducere:</label>
     <textarea id="intro" name="intro" required>{{ carte.intro }}</textarea><br>
 
-    <label for="current_image">Imagine curentă:</label>
-    <input type="text" id="current_image" name="current_image" value="{{ carte.image }}" readonly><br>
+    {% if carte.image %}
+        <label for="current_image">Imagine curentă:</label>
+        <img class="image-carte" src="{{ url_for('static', filename='imagini_carte/' + carte.image) }}" alt="Imagine carte"><br>
+    {% else %}
+        <p>Nu există o imagine curentă.</p>
+    {% endif %}
 
     <label for="new_image">Imagine nouă:</label>
     <input type="file" id="new_image" name="new_image"><br>
@@ -35,9 +38,6 @@ Update
 
     <input type="submit" value="Actualizează">
 </form>
-
-
-
 
 
 {% endblock %}

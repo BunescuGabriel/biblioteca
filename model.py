@@ -25,6 +25,8 @@ class Autor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nume = db.Column(db.String(300), nullable=False)
     prenume = db.Column(db.String(300), nullable=True)
+    data_nasterii = db.Column(db.String(300), nullable=True)
+    tara = db.Column(db.String(40), nullable=True)
 
     def __repr__(self):
         return '<Autor %r>' % self.id

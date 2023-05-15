@@ -1,4 +1,32 @@
-/* update.css */
+
+
+/* Alte stilizări adiționale pot fi adăugate aici */
+
+
+/* Stilizarea butonului de intoarcere */
+.sageata-inapoi {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Efectul de hover pentru butonul de intoarcere */
+.sageata-inapoi:hover {
+  background-color: #3e8e41;
+}
+
+/* Stilizarea containerului pentru lista de detalii si butonul de intoarcere */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
 
 /* Stilizare formular */
 form {
@@ -64,28 +92,51 @@ input[type="submit"]:hover {
   background-color: #23527c;
 }
 
-/* Alte stilizări adiționale pot fi adăugate aici */
-
-
-/* Stilizarea butonului de intoarcere */
-.sageata-inapoi {
-  display: inline-block;
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+/* Animatie de fadeIn pentru imaginea curenta */
+.current-image {
+  max-width: 100px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
-/* Efectul de hover pentru butonul de intoarcere */
-.sageata-inapoi:hover {
-  background-color: #3e8e41;
+.image-carte {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  /* Alte stilizări adiționale pot fi adăugate aici */
 }
 
-/* Stilizarea containerului pentru lista de detalii si butonul de intoarcere */
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
+
+/* Animatie de fadeOut pentru imaginea noua */
+.new-image {
+  max-width: 100px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+

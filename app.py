@@ -1,29 +1,24 @@
-from flask import Flask, render_template, url_for, request, redirect, jsonify
+from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
-
 from db import db_init, db
 from model import Carte, Autor
-from io import BytesIO
-from PIL import Image
 import os
-import base64
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///biblioteca.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db_init(app)
-
-#
-# UPLOAD_FOLDER = b'imagini_carte'
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER.decode()
-
+migrate = Migrate(app, db)
 
 
 @app.route('/')
 @app.route('/home')
 def index():
-    return render_template("index.html")
+    carti = Carte.query.order_by(Carte.date.desc()).all()
+    return render_template("index.html", carti=carti)
+
 
 
 @app.route('/about')
@@ -34,14 +29,6 @@ def about():
 UPLOAD_FOLDER = 'static/imagini_carte'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# @app.route('/carti')
-# def carti():
-#     carti = Carte.query.order_by(Carte.date.desc()).all()
-#
-#     # Preia lista fișierelor din mapa de imagini
-#     imagini = os.listdir(UPLOAD_FOLDER)
-#
-#     return render_template("carti/carte.html", carti=carti, imagini=imagini)
 
 @app.route('/carti')
 def carti():
@@ -85,22 +72,32 @@ def create():
         return render_template("carti/creare.html", autori=autori)
 
 
-
-
-
 @app.route('/carti/<int:id>/update', methods=['GET', 'POST'])
 def update(id):
     carte = Carte.query.get_or_404(id)
     if request.method == 'POST':
         carte.titlu = request.form['titlu']
         carte.intro = request.form['intro']
-        carte.image = request.form['image']
         carte.autor_id = request.form['autor_id']
+
+        new_image = request.files.get('new_image')
+        if new_image:
+            # Verificăm dacă fișierul încărcat este o imagine
+            if new_image.mimetype.startswith('image/'):
+                # Generăm un nume unic pentru fișierul imaginii
+                image_filename = f"carte_{id}_image.{new_image.filename.split('.')[-1]}"
+                # Salvăm imaginea în directorul specificat
+                new_image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+                # Actualizăm calea imaginii în obiectul 'carte'
+                carte.image = image_filename
+            else:
+                return "Eroare: Fișierul încărcat nu este o imagine."
+
         try:
             db.session.commit()
             return redirect('/carti')
         except:
-            return "A aparut o eroare la actualizarea cartii."
+            return "A apărut o eroare la actualizarea cărții."
     else:
         autori = Autor.query.all()
         return render_template("carti/update.html", carte=carte, autori=autori)
@@ -156,13 +153,17 @@ def update_autor(id):
     if request.method == 'POST':
         autor.nume = request.form['nume']
         autor.prenume = request.form['prenume']
+        data_nasterii = request.form['zi_nastere'] + "/" + request.form['luna_nastere'] + "/" + request.form['an_nastere']
+        autor.data_nasterii = data_nasterii
+        autor.tara = request.form['tara']
         try:
             db.session.commit()
             return redirect('/autori')
         except:
-            return "A aparut o eroare la actualizarea autorului."
+            return "A apărut o eroare la actualizarea autorului."
     else:
         return render_template("autor/update_autor.html", autor=autor)
+
 
 
 @app.route('/autori/<int:id>/delete', methods=['POST'])

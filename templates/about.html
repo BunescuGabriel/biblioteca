@@ -5,11 +5,22 @@ About
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/autor.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 {% endblock %}
 
 {% block body%}
+
+
 <div class="container">
-About page
-</div>
+    <img src="static/Bunescu-Gabriel.jpg" alt="Imaginea mea">
+    <p>You might need to create lists that display different types of content. For example, you might be working on a list that shows a heading followed by a few items related to the heading, followed by another heading, and so on.
+
+Here’s how you can create such a structure with Flutter:
+
+Create a data source with different types of items.
+Convert the data source into a list of widgets.
+</p>
+  </div>
+
+
 {% endblock %}

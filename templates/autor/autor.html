@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/autor/autor.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/autor/autor.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {% endblock %}
@@ -11,25 +11,25 @@ Autori
 {% endblock %}
 
 {% block body %}
-  <h1>Lista de autori</h1>
+<h1>Lista de autori</h1>
 
 
-  <table>
+<table>
     <thead>
-      <tr>
+    <tr>
         <th>Nume</th>
         <th>Prenume</th>
         <th>Detalii</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
-      {% for autor in autori %}
-        <tr>
-          <td>{{ autor.nume }}</td>
-          <td>{{ autor.prenume }}</td>
-          <td><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-refresh"></i></a></td>
-        </tr>
-      {% endfor %}
+    {% for autor in autori %}
+    <tr>
+        <td>{{ autor.nume }}</td>
+        <td>{{ autor.prenume }}</td>
+        <td><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-refresh"></i></a></td>
+    </tr>
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}
