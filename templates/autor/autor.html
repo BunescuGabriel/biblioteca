@@ -14,22 +14,19 @@ Autori
 <h1>Lista de autori</h1>
 
 
-<table>
-    <thead>
-    <tr>
-        <th>Nume</th>
-        <th>Prenume</th>
-        <th>Detalii</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for autor in autori %}
-    <tr>
-        <td>{{ autor.nume }}</td>
-        <td>{{ autor.prenume }}</td>
-        <td><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-refresh"></i></a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+  {% for autor in autori %}
+  <div class="autor">
+    <img src="{{ url_for('static', filename='imagini_carte/' +autor.imagine) }}" alt="Imagine autor">
+    <div class="detalii">
+      <p>Nume: {{ autor.nume }}</p>
+      <p>Prenume: {{ autor.prenume }}</p>
+      <a href="{{ url_for('autor', id=autor.id) }}"><i class="fa  fa-info-circle"></i></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
 {% endblock %}

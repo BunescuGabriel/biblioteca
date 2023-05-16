@@ -46,7 +46,7 @@ def carte(id):
 def create():
     if request.method == 'POST':
         titlu = request.form['titlu']
-        intro = request.form['intro']
+        descr_carte  = request.form['descriere']
         autor_id = request.form['autor_id']
 
         # Procesăm imaginea din formular
@@ -59,7 +59,7 @@ def create():
                 file.save(image_path)
                 image_path = os.path.relpath(image_path, app.config['UPLOAD_FOLDER'])
 
-        carti = Carte(titlu=titlu, intro=intro, image=image_path, autor_id=autor_id)
+        carti = Carte(titlu=titlu, descr_carte=descr_carte, image=image_path, autor_id=autor_id)
 
         try:
             db.session.add(carti)
@@ -77,8 +77,8 @@ def update(id):
     carte = Carte.query.get_or_404(id)
     if request.method == 'POST':
         carte.titlu = request.form['titlu']
-        carte.intro = request.form['intro']
         carte.autor_id = request.form['autor_id']
+        carte.descr_carte = request.form['descr_carte']
 
         new_image = request.files.get('new_image')
         if new_image:
@@ -136,13 +136,25 @@ def create_autor():
     if request.method == 'POST':
         nume = request.form['nume']
         prenume = request.form['prenume']
-        autor = Autor(nume=nume, prenume=prenume)
+
+        # Procesăm imaginea din formular
+        image_autor_path = None
+        if 'imagine' in request.files:
+            file = request.files['imagine']
+            if file.filename != '':
+                filename = secure_filename(file.filename)
+                image_autor_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(image_autor_path)
+                image_autor_path = os.path.relpath(image_autor_path, app.config['UPLOAD_FOLDER'])
+
+        autor = Autor(nume=nume, prenume=prenume, imagine=image_autor_path)
+
         try:
             db.session.add(autor)
             db.session.commit()
             return redirect('/autori')
         except:
-            return "A aparut o eroare la adaugarea autorului."
+            return "A apărut o eroare la adăugarea autorului."
     else:
         return render_template("autor/create_autori.html")
 
@@ -156,6 +168,26 @@ def update_autor(id):
         data_nasterii = request.form['zi_nastere'] + "/" + request.form['luna_nastere'] + "/" + request.form['an_nastere']
         autor.data_nasterii = data_nasterii
         autor.tara = request.form['tara']
+        autor.descriere = request.form['descriere']
+
+        new_imagine = request.files.get('new_imagine')
+        if new_imagine:
+            # Verificăm dacă fișierul încărcat este o imagine
+            if new_imagine.mimetype.startswith('image/'):
+                # Generăm un nume unic pentru fișierul imaginii
+                imagine_filename = f"autor_{id}_imagine.{new_imagine.filename.split('.')[-1]}"
+                # Salvăm imaginea în directorul specificat
+                new_imagine.save(os.path.join(app.config['UPLOAD_FOLDER'], imagine_filename))
+                # Verificăm dacă există deja o imagine asociată autorului și o ștergem
+                if autor.imagine:
+                    image_autor_path = os.path.join(app.config['UPLOAD_FOLDER'], autor.imagine)
+                    if os.path.exists(image_autor_path):
+                        os.remove(image_autor_path)
+                # Actualizăm calea imaginii în obiectul 'autor'
+                autor.imagine = imagine_filename
+            else:
+                return "Eroare: Fișierul încărcat nu este o imagine."
+
         try:
             db.session.commit()
             return redirect('/autori')
@@ -163,7 +195,6 @@ def update_autor(id):
             return "A apărut o eroare la actualizarea autorului."
     else:
         return render_template("autor/update_autor.html", autor=autor)
-
 
 
 @app.route('/autori/<int:id>/delete', methods=['POST'])

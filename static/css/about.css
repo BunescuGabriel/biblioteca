@@ -1,33 +1,74 @@
+
+
 .container {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f2f2f2; /* Culorile de fundal */
+  min-height: 100vh;
+  background-color: hsl(200, 70%, 50%); /* Culoare neobișnuită */
+  padding: 20px;
 }
 
-.container img {
+
+.container img:not(.no-animation) {
   width: 300px;
   transform: translateX(0px);
   animation: float 6s ease-out infinite;
-  border-radius: 50%; /* Bordură rotundă pentru imagine */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Umbră pentru imagine */
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+.my-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: none;
+}
+
+
+
+
+.container img.my-image.no-animation {
+  animation: none;
+}
+
+
 
 .container p {
-  font-size: 18px;
-  color: #333; /* Culoarea textului */
-  margin-top: 10px; /* Spațiu de sus pentru paragraf */
+  font-size: 22px;
+  color: #0c0c0c;
+  margin-top: 20px;
+  /*margin-bottom: 240px;*/
+  line-height: 1.6;
+  text-align: justify;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  animation: fade-in 1s ease-out;
 }
 
-.electe {
-  color: red;
-  font-weight: bold;
-  font-style: italic; /* Stiluri pentru textul cu clasa "electe" */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Umbrire text pentru efect */
+.container embed {
+  width: 100%;
+  max-width: 800px;
+  height: 600px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 .animatie {
   animation-name: fade-in;
@@ -55,36 +96,3 @@
   }
 }
 
-.mormatari {
-  font-size: 24px;
-  font-weight: bold;
-  color: #800080; /* Culoare purpuriu pentru textul cu clasa "mormatari" */
-  text-transform: uppercase; /* Transformare în majuscule pentru text */
-  text-stroke: 2px #800080; /* Contur pentru text */
-}
-
-.elefte {
-  font-size: 20px;
-  color: #008000; /* Culoare verde pentru textul cu clasa "elefte" */
-  text-decoration: underline; /* Subliniere pentru textul cu clasa "elefte" */
-  letter-spacing: 2px; /* Spațiere între caractere pentru textul cu clasa "elefte" */
-  animation: rainbow 5s linear infinite; /* Animare culori pentru text */
-}
-
-@keyframes rainbow {
-  0% {
-    color: #008000;
-  }
-  25% {
-    color: #FFD700;
-  }
-  50% {
-    color: #FF4500;
-  }
-  75% {
-    color: #800080;
-  }
-  100% {
-    color: #008000;
-  }
-}

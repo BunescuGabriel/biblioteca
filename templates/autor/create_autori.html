@@ -13,7 +13,7 @@ Creare Autor
 
 <div class="container">
     <h1>Creare autor</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
             <label for="nume">Nume:</label>
@@ -23,8 +23,13 @@ Creare Autor
             <label for="prenume">Prenume:</label>
             <input type="text" name="prenume" id="prenume" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Adauga autor</button>
+        <div class="form-group">
+            <label for="imagine">Imagine:</label>
+            <input type="file" id="imagine" name="imagine" accept="image/jpeg, image/png, image/gif">
+        </div>
+        <button type="submit" class="btn btn-primary">Adaugă autor</button>
     </form>
 </div>
+
 
 {% endblock %}

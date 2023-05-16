@@ -10,9 +10,8 @@ subs = db.Table('subs',
 class Carte(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titlu = db.Column(db.String(300), nullable=False)
-    intro = db.Column(db.String(300), nullable=False)
-    # image = db.Column(db.LargeBinary, nullable=True)
     image = db.Column(db.String(255))
+    descr_carte = db.Column(db.Text)
     date = db.Column(db.DateTime, default=datetime.utcnow())
     autor_id = db.Column(db.Integer, db.ForeignKey('autor.id'))
     autor = db.relationship('Autor', backref='carti')
@@ -27,6 +26,8 @@ class Autor(db.Model):
     prenume = db.Column(db.String(300), nullable=True)
     data_nasterii = db.Column(db.String(300), nullable=True)
     tara = db.Column(db.String(40), nullable=True)
+    imagine = db.Column(db.String(255))
+    descriere = db.Column(db.Text)
 
     def __repr__(self):
         return '<Autor %r>' % self.id

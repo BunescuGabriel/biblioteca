@@ -13,16 +13,26 @@ Detalii
 <div class="back-container">
     <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
 </div>
+
+
 <div class="container">
+  <h1>Detalii autor</h1>
 
-    <h1>Detalii autor</h1>
-    <ul>
-        <li><strong>Nume:</strong> {{ autor.nume }}</li>
-        <li><strong>Prenume:</strong> {{ autor.prenume }}</li>
-        <li><strong>Data nașterii:</strong> {{ autor.data_nasterii }}</li>
-        <li><strong>Țară:</strong> {{ autor.tara }}</li>
-    </ul>
+  <div class="image-container">
+ <img src="{{ url_for('static', filename='imagini_carte/' +autor.imagine) }}" alt="Imagine autor">
 
+
+  </div>
+
+  <ul>
+    <li><strong>Nume:</strong> {{ autor.nume }}</li>
+    <li><strong>Prenume:</strong> {{ autor.prenume }}</li>
+    <li><strong>Data nașterii:</strong> {{ autor.data_nasterii }}</li>
+    <li><strong>Țară:</strong> {{ autor.tara }}</li>
+      <li><strong>Descriere:</strong> {{ autor.descriere }}</li>
+  </ul>
 </div>
+
+
 
 {% endblock %}

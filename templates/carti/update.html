@@ -5,7 +5,7 @@ Update
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/carte/update.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/carte/update.css') }}">
 {% endblock %}
 
 {% block body%}
@@ -16,14 +16,11 @@ Update
     <label for="titlu">Titlu:</label>
     <input type="text" id="titlu" name="titlu" value="{{ carte.titlu }}" required><br>
 
-    <label for="intro">Introducere:</label>
-    <textarea id="intro" name="intro" required>{{ carte.intro }}</textarea><br>
-
     {% if carte.image %}
-        <label for="current_image">Imagine curentă:</label>
-        <img class="image-carte" src="{{ url_for('static', filename='imagini_carte/' + carte.image) }}" alt="Imagine carte"><br>
+    <label for="current_image">Imagine curentă:</label>
+    <img class="image-carte" src="{{ url_for('static', filename='imagini_carte/' + carte.image) }}" alt="Imagine carte"><br>
     {% else %}
-        <p>Nu există o imagine curentă.</p>
+    <p>Nu există o imagine curentă.</p>
     {% endif %}
 
     <label for="new_image">Imagine nouă:</label>
@@ -32,9 +29,19 @@ Update
     <label for="autor_id">Autor:</label>
     <select id="autor_id" name="autor_id">
         {% for autor in autori %}
-        <option value="{{ autor.id }}" {% if autor.id == carte.autor_id %}selected{% endif %}>{{ autor.nume }} {{ autor.prenume }}</option>
+        <option value="{{ autor.id }}" {% if autor.id== carte.autor_id %}selected{% endif %}>{{ autor.nume }} {{
+            autor.prenume }}
+        </option>
         {% endfor %}
     </select><br>
+
+    <label for="descriere">Descriere:</label>
+{% if carte.descr_carte %}
+    <textarea id="descriere" name="descr_carte" rows="4" cols="50">{{ carte.descr_carte }}</textarea>
+{% else %}
+    <textarea id="descrierea" name="descr_carte" rows="4" cols="50"></textarea>
+{% endif %}
+
 
     <input type="submit" value="Actualizează">
 </form>

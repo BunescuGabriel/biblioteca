@@ -24,7 +24,7 @@ List of Books
   <img src="{{ url_for('static', filename='imagini_carte/' +carte.image) }}" alt="Imagine carte">
 
     <h2>{{ carte.titlu }}</h2>
-    <p><strong>Introducere:</strong> {{ carte.intro }}</p>
+    <p><strong>descriere:</strong> <span class="description">{{ carte.descr_carte }}</span></p>
     <p><strong>Autor:</strong> {{ carte.autor.prenume }} {{ carte.autor.nume }}</p>
 
     <div class="buton-container">

@@ -18,7 +18,8 @@ Actualizare autor
 <h1>Actualizare autor</h1>
 <a href="javascript:history.back()" class="sageata-inapoi">&#8592; Înapoi</a>
 
-<form method="POST" action="{{ url_for('update_autor', id=autor.id) }}">
+    <form action="/autori/{{ autor.id }}/update" method="POST" enctype="multipart/form-data">
+
     <label for="nume">Nume:</label>
     <input type="text" id="nume" name="nume" value="{{ autor.nume }}">
 
@@ -28,24 +29,35 @@ Actualizare autor
     <label for="zi_nastere">Alegerea datii de nastere:</label>
 
     <div class="birthdate-select">
-    <div class="col">
-        <label for="zi_nastere">Ziua nașterii:</label>
-        <select id="zi_nastere" name="zi_nastere">
-            <option value="">-- Ziua --</option>
-        </select>
-    </div>
+
+
+   <div class="col">
+    <label for="zi_nastere">Ziua nașterii:</label>
+    <select id="zi_nastere" name="zi_nastere">
+        {% if autor.data_nasterii %}
+            <option selected> {{ autor.data_nasterii.split('/')[0] }} </option>
+        {% endif %}
+    </select>
+</div>
+
+
+
 
     <div class="col">
         <label for="luna_nastere">Luna nașterii:</label>
         <select id="luna_nastere" name="luna_nastere">
-            <option value="">-- Luna --</option>
+            {% if autor.data_nasterii %}
+            <option selected> {{ autor.data_nasterii.split('/')[1] }} </option>
+        {% endif %}
         </select>
     </div>
 
     <div class="col">
         <label for="an_nastere">Anul nașterii:</label>
         <select id="an_nastere" name="an_nastere">
-            <option value="">-- Anul --</option>
+            {% if autor.data_nasterii %}
+            <option selected> {{ autor.data_nasterii.split('/')[2] }} </option>
+        {% endif %}
         </select>
     </div>
 </div>
@@ -53,6 +65,24 @@ Actualizare autor
 
     <label for="tara">Țara:</label>
     <input type="text" id="tara" name="tara" value="{{ autor.tara }}">
+
+
+    {% if autor.imagine %}
+        <label for="current_image">Imagine curentă:</label>
+        <img src="{{ url_for('static', filename='imagini_carte/' +autor.imagine) }}" alt="Imagine autor">
+    {% else %}
+        <p>Nu există o imagine curentă.</p>
+    {% endif %}
+
+    <label for="new_imagine">Imagine nouă:</label>
+    <input type="file" id="new_imagine" name="new_imagine"><br>
+
+ <label for="descriere">Descriere:</label>
+{% if autor.descriere %}
+    <textarea id="descriere" name="descriere" rows="4" cols="50">{{ autor.descriere }}</textarea>
+{% else %}
+    <textarea id="descrieree" name="descriere" rows="4" cols="50"></textarea>
+{% endif %}
 
     <button type="submit">Actualizare autor</button>
 </form>
@@ -103,7 +133,7 @@ Actualizare autor
     }
 
     var anulCurent = new Date().getFullYear();
-    var anulInceput = 1900;
+    var anulInceput = 1400;
     for (var an = anulCurent; an >= anulInceput; an--) {
         var option = document.createElement("option");
         option.value = an;

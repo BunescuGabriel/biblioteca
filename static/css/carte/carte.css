@@ -216,3 +216,10 @@ a.buton i.fa-refresh {
   text-decoration: none;
   border-bottom: none;
 }
+.description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; /* Numărul de rânduri dorite */
+}

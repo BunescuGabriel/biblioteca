@@ -14,32 +14,27 @@ Autori
 <h1>Lista de autori</h1>
 <button onclick="window.location.href='autori/create';">Creare</button>
 
-<table>
-    <thead>
-    <tr>
-        <th>Nume</th>
-        <th>Prenume</th>
-        <th>Detalii</th>
-        <th>Acțiuni</th>
-        <th>Update</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for autor in autori %}
-    <tr>
-        <td>{{ autor.nume }}</td>
-        <td>{{ autor.prenume }}</td>
-        <td><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-refresh"></i></a></td>
-        <td>
-            <form action="{{ url_for('delete_autor', id=autor.id) }}" method="POST">
-                <button type="submit" class="icon-button">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </form>
-        </td>
-        <td><a href="{{ url_for('update_autor', id=autor.id) }}"><i class="fa fa-info-circle"></i></a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+  {% for autor in autori %}
+  <div class="autor">
+    <div class="detalii">
+      <img src="{{ url_for('static', filename='imagini_carte/' + autor.imagine) }}" alt="Imagine autor">
+      <p><strong>Nume:</strong> {{ autor.nume }}</p>
+      <p><strong>Prenume:</strong> {{ autor.prenume }}</p>
+    </div>
+    <div class="actiuni">
+      <p><a href="{{ url_for('autor', id=autor.id) }}"><i class="fa fa-info-circle"></i> </a></p>
+      <form action="{{ url_for('delete_autor', id=autor.id) }}" method="POST">
+        <button type="submit" class="icon-button">
+          <i class="fa fa-trash"></i>
+        </button>
+      </form>
+      <p><a href="{{ url_for('update_autor', id=autor.id) }}"><i class="fa fa-refresh"></i> </a></p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
 {% endblock %}
