@@ -30,7 +30,6 @@
 
 
 
-
 .container img.my-image.no-animation {
   animation: none;
 }
@@ -48,14 +47,7 @@
   animation: fade-in 1s ease-out;
 }
 
-.container embed {
-  width: 100%;
-  max-width: 800px;
-  height: 600px;
-  border: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
-}
+
 
 @keyframes fade-in {
   0% {
